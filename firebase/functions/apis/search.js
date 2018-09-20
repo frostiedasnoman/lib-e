@@ -2,8 +2,8 @@ const callAPI = require('../api_client');
 const searchUrl = 'https://5rk6wzqvia.execute-api.us-east-1.amazonaws.com/Beta';
 // axios.defaults.baseURL = 'https://5rk6wzqvia.execute-api.us-east-1.amazonaws.com';
 
-function search(agent, onSuccess) {
-  return callAPI(searchUrl, buildQuery(request.body.queryResult.parameters))
+function search(agent, onSuccess, parameters) {
+  return callAPI(searchUrl, buildQuery(parameters))
     .then((resp) => {
       onSuccess(resp.data);
       Promise.resolve();

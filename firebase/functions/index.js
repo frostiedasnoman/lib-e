@@ -25,9 +25,9 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
     intentMap.set('Default Welcome Intent', welcome);
     intentMap.set('Default Fallback Intent', fallback);
     if (agent.requestSource === agent.ACTIONS_ON_GOOGLE) {
-        intentMap.set('FindBookIntent', googleAssistantHandler);
+        intentMap.set('FindBookIntent', googleAssistantHandler(agent, request.body.queryResult.parameters));
     } else {
-        intentMap.set('FindBookIntent', otherHandler);
+        intentMap.set('FindBookIntent', otherHandler(agent, request.body.queryResult.parameters));
     }
     agent.handleRequest(intentMap);
 });
