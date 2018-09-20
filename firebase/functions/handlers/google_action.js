@@ -1,9 +1,9 @@
 const { SimpleResponse } = require('actions-on-google');
 const search = require('../apis/search');
 
-function googleAssistantHandler(agent, parameters) {
-  // console.log("googleAssistantHandler");
-  return search(agent, (data) => {
+function googleAssistantSearch(parameters) {
+  // console.log("googleAssistantSearch");
+  return search((data) => {
     let conv = agent.conv(); // Get Actions on Google library conv instance
     let str = `There are ${data.totalHits} results for your query. Would you like me to list them all?`;
     conv.ask(new SimpleResponse({
@@ -14,4 +14,4 @@ function googleAssistantHandler(agent, parameters) {
   }, parameters);
 }
 
-module.exports = googleAssistantHandler;
+module.exports = googleAssistantSearch;

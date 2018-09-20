@@ -1,7 +1,7 @@
 const search = require('../apis/search');
 
-function otherHandler(agent, parameters) {
-  return search(agent, (data) => {
+function otherSearch(agent, parameters) {
+  return search((data) => {
     agent.add(`There are ${data.totalHits} results for your query:`);
     for (var resource of data.resources) {
       agent.add([resource.shortTitle, readibleAuthor(resource.shortAuthor)].join(" "));
@@ -18,4 +18,4 @@ function otherHandler(agent, parameters) {
   }
 }
 
-module.exports = otherHandler;
+module.exports = otherSearch;
