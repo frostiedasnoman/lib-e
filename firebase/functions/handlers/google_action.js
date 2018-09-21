@@ -1,7 +1,7 @@
 const { SimpleResponse } = require('actions-on-google');
 const search = require('../apis/search');
 
-function googleAssistantSearch(parameters) {
+function googleAssistantSearch(agent, parameters) {
   // console.log("googleAssistantSearch");
   return search((data) => {
     let conv = agent.conv(); // Get Actions on Google library conv instance

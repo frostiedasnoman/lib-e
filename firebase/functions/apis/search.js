@@ -68,7 +68,7 @@ function search(onSuccess, parameters) {
   }
 
   function authorSearchTerm(authorFirst, authorLast) {
-    if (authorFirst || authorLast) {
+    if (isPresent(authorFirst) || isPresent(authorLast)) {
       return {
         searchString: [authorFirst, authorLast].join(" "),
         type: "Contains",
@@ -79,7 +79,7 @@ function search(onSuccess, parameters) {
   }
 
   function strSearchTerm(str, fieldName) {
-    if (str) {
+    if (isPresent(str)) {
       return {
         searchString: str,
         type: "Contains",
@@ -87,6 +87,10 @@ function search(onSuccess, parameters) {
       }
     }
     return null;
+  }
+
+  function isPresent(value) {
+    return (typeof value === "string" && value.length > 0);
   }
 
   const facetMap = {

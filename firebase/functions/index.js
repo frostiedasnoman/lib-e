@@ -22,11 +22,11 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
     }
 
     function googleAssistantHandler(agent) {
-      return googleAssistantSearch(request.body.queryResult.parameters);
+      return googleAssistantSearch(agent, request.body.queryResult.parameters);
     }
 
     function otherHandler(agent) {
-      return otherSearch(request.body.queryResult.parameters);
+      return otherSearch(agent, request.body.queryResult.parameters);
     }
 
     let intentMap = new Map();
