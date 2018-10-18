@@ -6,8 +6,9 @@ const parse_results = require("./search_result_parser");
 function search(onSuccess, parameters) {
   return callAPI(searchUrl, buildQuery(parameters))
     .then(resp => {
+      //TODO availability
       let s = parse_results(resp.data);
-      console.log(resp.data);
+      console.log(JSON.stringify(resp.data.resources[0].holdingsInformations));
       onSuccess(s);
       Promise.resolve();
     })
@@ -28,10 +29,7 @@ function search(onSuccess, parameters) {
       addToHistory: false,
       dbCodes: []
     };
-    console.log("------------stringify------------");
-    let j = JSON.stringify(query);
-    console.log(j);
-    return j;
+    return JSON.stringify(query);
   }
 
   function buildFacetFilters(parameters) {
@@ -42,7 +40,6 @@ function search(onSuccess, parameters) {
         array.push(facetFilter(type));
       }
     }
-    console.log(array);
     return array;
   }
 

@@ -2,7 +2,6 @@
 
 const functions = require('firebase-functions');
 const {WebhookClient} = require('dialogflow-fulfillment');
-const availabilityUrl = 'https://5rk6wzqvia.execute-api.us-east-1.amazonaws.com/Beta';
 const googleAssistantSearch = require('./handlers/google_action');
 const otherSearch = require('./handlers/other');
 
