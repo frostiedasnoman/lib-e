@@ -1,9 +1,13 @@
 function parse_results(data) {
-  let results = { total_results: 0, items: []}
-  if(data.totalHits > 0) {
+  let results = { total_results: 0, items: [] };
+  if (data.totalHits > 0) {
     results.total_results = data.totalHits;
     for (var resource of data.resources) {
-      items.push({ title: resource.shortTitle, author: readibleAuthor(resource.shortAuthor), call_number: item.callNumber });
+      results.items.push({
+        title: resource.shortTitle,
+        author: readibleAuthor(resource.shortAuthor),
+        call_number: resource.callNumber
+      });
     }
   }
   return buildResultResponse(results);
@@ -23,9 +27,12 @@ function buildResultResponse(results) {
     case 0:
       return `There are 0 results for your query`;
     case 1:
-      let item = results.items[0]
-      return `There is a copy of ${item.title} in the ${item.call_number} section. Other editions are out on loan`;
-    default: `DEF`
+      let item = results.items[0];
+      return `There is a copy of ${item.title} in the ${
+        item.call_number
+      } section. Other editions are out on loan`;
+    default:
+      `DEF`;
   }
 }
 

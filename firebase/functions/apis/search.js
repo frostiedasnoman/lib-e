@@ -1,16 +1,17 @@
-const callAPI = require('../api_client');
-const searchUrl = 'https://5rk6wzqvia.execute-api.us-east-1.amazonaws.com/Beta';
+const callAPI = require("../api_client");
+const searchUrl = "https://5rk6wzqvia.execute-api.us-east-1.amazonaws.com/Beta";
 // axios.defaults.baseURL = 'https://5rk6wzqvia.execute-api.us-east-1.amazonaws.com';
 const parse_results = require("./search_result_parser");
 
 function search(onSuccess, parameters) {
   return callAPI(searchUrl, buildQuery(parameters))
-    .then((resp) => {
+    .then(resp => {
       let s = parse_results(resp.data);
-      onSuccess(resp.data);
+      console.log(resp.data);
+      onSuccess(s);
       Promise.resolve();
     })
-    .catch((error) => {
+    .catch(error => {
       console.log(error);
       Promise.resolve();
     });
@@ -55,7 +56,27 @@ function search(onSuccess, parameters) {
   }
 
   function buildBranchFilters(parameters) {
-    return ["1", "2", "3", "4", "5", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "28", "34", "6"];
+    return [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "13",
+      "14",
+      "15",
+      "16",
+      "17",
+      "28",
+      "34",
+      "6"
+    ];
   }
 
   function buildSearchTerm(parameters) {
@@ -65,7 +86,7 @@ function search(onSuccess, parameters) {
         authorSearchTerm(parameters.author, parameters.Author1),
         strSearchTerm(parameters.title, "Title"),
         strSearchTerm(parameters.keyword, "Subject")
-      ].filter((obj) => obj)
+      ].filter(obj => obj)
     });
   }
 
@@ -75,7 +96,7 @@ function search(onSuccess, parameters) {
         searchString: [authorFirst, authorLast].join(" "),
         type: "Contains",
         field: "Author"
-      }
+      };
     }
     return null;
   }
@@ -86,36 +107,36 @@ function search(onSuccess, parameters) {
         searchString: str,
         type: "Contains",
         field: fieldName
-      }
+      };
     }
     return null;
   }
 
   function isPresent(value) {
-    return (typeof value === "string" && value.length > 0);
+    return typeof value === "string" && value.length > 0;
   }
 
   const facetMap = {
-      magazine: "Magazine",
-      movie: "DVD",
-      music: "Music CD",
-      book: "Book",
-      digital: "Electronic Resource"
+    magazine: "Magazine",
+    movie: "DVD",
+    music: "Music CD",
+    book: "Book",
+    digital: "Electronic Resource"
   };
 
   const location = {
-      "central" : [1,2,3,4,5,6],
-      "brooklyn" : [7],
-      "cummings park" : [8],
-      "island bay" : [9],
-      "jonsonvile" : [10],
-      "karori" : [11],
-      "khandallah" : [12],
-      "kilbirnie" : [13],
-      "miramar" : [14],
-      "newtown" : [15],
-      "tawa" : [16],
-      "wadestown" : [17]
+    central: [1, 2, 3, 4, 5, 6],
+    brooklyn: [7],
+    "cummings park": [8],
+    "island bay": [9],
+    jonsonvile: [10],
+    karori: [11],
+    khandallah: [12],
+    kilbirnie: [13],
+    miramar: [14],
+    newtown: [15],
+    tawa: [16],
+    wadestown: [17]
   };
 }
 
