@@ -1,11 +1,13 @@
 const callAPI = require('../api_client');
 const searchUrl = 'https://5rk6wzqvia.execute-api.us-east-1.amazonaws.com/Beta';
 // axios.defaults.baseURL = 'https://5rk6wzqvia.execute-api.us-east-1.amazonaws.com';
+const parse_results = require("./search_result_parser");
 
 function search(onSuccess, parameters) {
   return callAPI(searchUrl, buildQuery(parameters))
     .then((resp) => {
-      onSuccess(resp.data);
+      let results = parse_results(resp.data);
+      onSuccess(results);
       Promise.resolve();
     })
     .catch((error) => {
